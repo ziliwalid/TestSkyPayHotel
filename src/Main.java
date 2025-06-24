@@ -64,3 +64,30 @@ public class Main {
         }
     }
 }
+
+/*
+ * DESIGN QUESTIONS ANSWERS
+ *
+ * 1. Is putting all functions in the same service recommended?
+ *
+ * No, this violates Single Responsibility Principle.
+ * Better approach:
+ * - UserService (handle users)
+ * - RoomService (handle rooms)
+ * - BookingService (handle bookings)
+ * - ReservationController (orchestrate services)
+ * Benefits: Better testability, maintainability, team development.
+ *
+ * 2. Alternative to setRoom() not impacting previous bookings?
+ *
+ * Current: Store booking snapshots (freeze room data at booking time)
+ * Alternative: Historical versioning (track room changes, calculate costs from history)
+ *
+ * Recommendation: Keep current snapshot approach
+ * Why:
+ * - Matches real hotel business (price honored at booking time)
+ * - Better performance (O(1) vs O(n) lookups)
+ * - Simpler code and testing
+ * - Data integrity guaranteed
+ * - Clear audit trail
+ */
